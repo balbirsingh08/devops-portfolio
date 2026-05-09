@@ -1,0 +1,72 @@
+repos:
+  # YAML Linting - Validate YAML syntax and conventions
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: [--strict, -d relaxed]
+        files: |
+          (?x)^(
+            .github/workflows/.*\.ya?ml|
+            kubernetes/.*\.ya?ml|
+            docker-compose\.ya?ml|
+            monitoring/.*\.ya?ml|
+            ansible/.*\.ya?ml
+          )$
+
+  # Terraform Formatting - Auto-format Terraform code
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.88.4
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_tflint
+        files: ^terraform/
+
+  # Shell Script Linting - Check bash script quality
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.9.0.6
+    hooks:
+      - id: shellcheck
+        files: ^scripts/.*\.sh$
+        args: [--severity=warning]
+
+  # JSON Linting - Validate JSON files
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-json
+        files: monitoring/.*\.json$
+      - id: check-yaml
+        files: |
+          (?x)^(
+            .github/workflows/.*\.ya?ml|
+            kubernetes/.*\.ya?ml
+          )$
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: check-merge-conflict
+
+  # Docker Linting - Check Dockerfile best practices
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.13.0
+    hooks:
+      - id: hadolint-docker
+        files: docker/Dockerfile
+
+  # Markdown Linting - Validate markdown files
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.38.0
+    hooks:
+      - id: markdownlint
+        files: \.md$
+
+ci:
+  autofix_commit_msg: 'chore: auto-format with pre-commit hooks'
+  autofix_prs: true
+  autoupdate_commit_msg: 'chore: update pre-commit hooks'
+  autoupdate_schedule: weekly
+  skip: [terraform_tflint]  # Skip tflint by default, run manually
+  stages: [commit, push, manual]

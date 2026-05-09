@@ -1,0 +1,79 @@
+# Docker .dockerignore file
+# Excludes files/directories from Docker build context
+# Reduces build context size and speeds up builds
+# Files listed here are not sent to Docker daemon during build
+
+# ============================================================
+# Version Control
+# ============================================================
+.git
+.gitignore
+.gitattributes
+
+# ============================================================
+# Development & Build Artifacts
+# ============================================================
+node_modules
+npm-debug.log
+yarn-error.log
+dist
+build
+coverage
+
+# ============================================================
+# IDE & Editor Configuration
+# ============================================================
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+.env.local
+.env.*.local
+
+# ============================================================
+# Documentation & Metadata
+# ============================================================
+README.md
+CHANGELOG.md
+docs
+.github
+
+# ============================================================
+# Testing & CI/CD
+# ============================================================
+.git
+.gitlab-ci.yml
+.circleci
+Jenkinsfile
+.travis.yml
+jest.config.js
+*.test.js
+
+# ============================================================
+# Dependencies & Package Managers
+# ============================================================
+.npm
+.yarn
+
+# ============================================================
+# OS Files
+# ============================================================
+Thumbs.db
+.DS_Store
+
+# ============================================================
+# Kubernetes & Deployment Configs
+# ============================================================
+kubernetes/
+terraform/
+ansible/
+.kube
+
+# ============================================================
+# Docker Files (don't need to include other dockerfiles)
+# ============================================================
+Dockerfile.dev
+docker-compose.override.yml
+.dockerignore
