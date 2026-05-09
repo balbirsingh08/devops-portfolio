@@ -292,7 +292,6 @@ This project is licensed under the MIT License - see [LICENSE](./LICENSE) file f
 
 **Balbir Singh**
 - GitHub: [@balbirsingh08](https://github.com/balbirsingh08)
-- Email: contact@myapp.io
 
 ---
 
